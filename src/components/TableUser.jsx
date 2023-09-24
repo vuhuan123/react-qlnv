@@ -2,6 +2,7 @@ import Table from 'react-bootstrap/Table';
 import { fetchAllUser } from '../services/UserService';
 import { useEffect, useState } from "react";
 import ReactPaginate from 'react-paginate';
+import ModalAdd from './ModalAdd';
 
 
 
@@ -9,10 +10,27 @@ function TableUser() {
     const [listUser, setListUser] = useState([]);
     const [totalPage, setTotalPage] = useState(0);
     const [totalUser, setTotalUser] = useState(0);
+    const [isShow, setIsShow] = useState(false);
+
+
+    const handleAdd = () => {
+        setIsShow(true)
+    }
+
+    const handleClose = () => {
+        setIsShow(false)
+    }
     useEffect(() => {
 
         getUsers(1)
-    }, [])
+    }, []);
+
+    const handleUpdateUser = (user) => {
+        setListUser([user, ...listUser])
+
+    }
+
+
 
     const getUsers = async (page) => {
         let res = await fetchAllUser(page);
@@ -30,6 +48,11 @@ function TableUser() {
     return (
 
         <>
+            <div className='my-3 d-flex justify-content-between'>
+                <h4>List Box:</h4>
+                <button className='btn btn-success' onClick={handleAdd}>Add</button>
+            </div>
+
 
             <Table striped bordered hover>
                 <thead>
@@ -72,6 +95,10 @@ function TableUser() {
                 nextLinkClassName="page-link"
                 activeClassName="active"
             />
+
+            <ModalAdd handleUpdateUser={handleUpdateUser} show={isShow} handleClose={handleClose} />
+
+
         </>
 
     );
