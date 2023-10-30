@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import { ToastContainer, toast } from 'react-toastify';
 import Home from './components/Home';
 import { Routes, Route, Link } from 'react-router-dom';
+import Login from './components/Login';
 
 
 function App() {
@@ -19,9 +20,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/user' element={<TableUser />} />
+            <Route path='/login' element={<Login />} />
           </Routes>
-
-
         </Container>
 
       </div>
