@@ -11,14 +11,12 @@ function ModalAdd({ show, handleClose, handleUpdateUser }) {
 
     const handleSaveUser = async () => {
         const res = await postCreateUsers(name, job);
-        console.log(res);
-        if (res.data && res.data.id) {
+        if (res && res.id) {
             handleClose();
             setName('');
             setJob('');
             toast.success("Add new user");
-            handleUpdateUser({ first_name: res.data.name, id: res.data.id })
-
+            handleUpdateUser({ first_name: res.name, id: res.id })
 
         } else {
             toast.error("Error")

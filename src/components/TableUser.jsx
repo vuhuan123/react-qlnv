@@ -67,9 +67,9 @@ function TableUser() {
     const getUsers = async (page) => {
         let res = await fetchAllUser(page);
         if (res && res.data) {
-            setListUser(res.data.data)
-            setTotalPage(res.data.total_pages)
-            setTotalUser(res.data.total)
+            setListUser(res.data)
+            setTotalPage(res.total_pages)
+            setTotalUser(res.total)
         }
     }
 

@@ -87,3 +87,18 @@
 
 
 }
+
+.loading-login {
+    animation: spinLoading 2.5s linear infinite;
+    margin-right: 10px;
+}
+
+@keyframes spinLoading {
+    from {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

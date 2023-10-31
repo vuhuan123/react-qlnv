@@ -11,15 +11,13 @@ function ModalEdit({ show, handleClose, dataEditUser, handleEditUserFromModal })
 
     const handleEditUser = async () => {
         let res = await putUpdateUser(name, job,);
-        if (res.data && res.data.updatedAt) {
+        if (res && res.updatedAt) {
             handleEditUserFromModal({
                 first_name: name,
                 id: dataEditUser.id
             })
             toast.success("Update user")
-
         }
-        console.log(res.data);
     }
 
     useEffect(() => {

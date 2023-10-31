@@ -9,7 +9,7 @@ import { deleteUser } from '../services/UserService';
 function ModalConfirm({ show, handleClose, dataDeleteUser, handleDeleteUserFromModal }) {
     const handleDeleteUserData = async () => {
         const res = await deleteUser(dataDeleteUser.id)
-        if (res && +res.status === 204) {
+        if (res) {
             toast.success("Delete user")
             handleClose(false)
             handleDeleteUserFromModal(dataDeleteUser);
