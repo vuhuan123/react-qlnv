@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { loginApi } from "../services/UserService";
 import { toast } from "react-toastify";
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
-
+import { UserContext } from "../context/UserContext";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -14,12 +14,8 @@ function Login() {
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate();
 
-    useEffect(() => {
-        let token = localStorage.getItem("token")
-        if (token) {
-            navigate("/")
-        }
-    }, [])
+    const { loginContext } = useContext(UserContext);
+
     const handleLogin = async () => {
         if (!email || !password) {
             toast.error("Email/Password is required")
@@ -28,14 +24,18 @@ function Login() {
         setIsLoading(true)
         let res = await loginApi(email, password);
         if (res && res.token) {
-            localStorage.setItem("token", res.token)
-            navigate("/")
+            loginContext(email, res.token);
+            navigate("/");
         } else {
             if (res.data && res.headers && res.status) {
                 toast.error(res.data.error)
             }
         }
         setIsLoading(false)
+    }
+
+    const handleGoback = () => {
+        navigate('/')
     }
     return (
         <div className="login-container col-4">
@@ -55,7 +55,7 @@ function Login() {
                 onClick={handleLogin}
             > {isLoading ? <AiOutlineLoading3Quarters className="loading-login" /> : null} Login</button>
 
-            <div className="go-back"> <IoIosArrowBack />Go back</div>
+            <div className="go-back"> <IoIosArrowBack /> <span onClick={handleGoback}>Go back</span></div>
         </div>
     );
 }

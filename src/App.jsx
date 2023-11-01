@@ -1,29 +1,22 @@
-
-import { useState } from 'react';
+import { useContext } from 'react';
 import styles from './App.scss'
 import Header from './components/Header'
-import TableUser from './components/TableUser'
 import Container from 'react-bootstrap/Container';
 import { ToastContainer, toast } from 'react-toastify';
-import Home from './components/Home';
-import { Routes, Route, Link } from 'react-router-dom';
-import Login from './components/Login';
+import { UserContext } from "./context/UserContext";
+import PublicRoute from './routes/publicRoute';
+
 
 
 function App() {
-
+  const { user } = useContext(UserContext);
   return (
     <>
       <div className='app-container'>
         <Header />
         <Container>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/user' element={<TableUser />} />
-            <Route path='/login' element={<Login />} />
-          </Routes>
+          <PublicRoute />
         </Container>
-
       </div>
 
 
